@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memguardian
+  labels:
+    app: memguardian
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memguardian
+  template:
+    metadata:
+      labels:
+        app: memguardian
+    spec:
+      serviceAccountName: memguardian
+      containers:
+      - name: memguardian 
+        image: memguardian 
+        command:
+        - python
+        - /opt/memguardian.py
+        - -d
+        - -vvvv
+        imagePullPolicy: IfNotPresent

@@ -58,6 +58,7 @@ You will require the files:
 - example/ingress.yaml
 - example/service.yaml
 
+
 ## Other useful files
 
 There are two files proposed to test a deployment or a statefulset:
@@ -69,10 +70,24 @@ The previously configured service, found at `example/service.yaml` will search f
 
 ## Running it
 
+### Outside of Kubernetes
+
 If you already have your Kind and Metrics-Server configured (remember Ingress is optional), you can just run memGuardian:
 
 ```
 ./memguardian.py --prometheus-port 10000 -d -vvvvv
 ```
-
 You can ask the service at port 10000 for Prometheus metrics.
+
+### Inside of Kubernetes
+
+You can run MemGuardian inside Kubernetes, but you require permission.
+
+To allow this, there are a couple of example files:
+
+- example/rbac.yaml
+- example/memguardian-deployment.yaml
+
+The former creates all the permission resources required by memguardian and the latter creates the MemGuardian deployment.
+
+

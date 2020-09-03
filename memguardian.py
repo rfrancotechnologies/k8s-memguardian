@@ -39,7 +39,7 @@ def parse_args():
     )
     parser.add_argument(
         "--incluster-base-path",
-        default=os.getenv("SCHED_INCLUSTER_BASE_PATH", ""),
+        default=os.getenv("MEMGUARDIAN_INCLUSTER_BASE_PATH", ""),
         help="Path to directory containing the token.",
     )
     parser.add_argument(
@@ -47,20 +47,20 @@ def parse_args():
     )
     parser.add_argument(
         "--delay",
-        default=float(os.getenv("SCHED_DELAY", 10)),
+        default=float(os.getenv("MEMGUARDIAN_DELAY", 10)),
         type=float,
         help="time to wait between loops",
     )
     parser.add_argument(
         "--prometheus-port",
-        default=int(os.getenv("SCHED_PROMETHEUS_PORT", 8000)),
+        default=int(os.getenv("MEMGUARDIAN_PROMETHEUS_PORT", 8000)),
         type=int,
         help="Prometheus Exporter port",
     )
     parser.add_argument(
         "--prometheus-disable",
         action="store_true",
-        default=os.getenv("SCHED_PROMETHEUS", "true") == "false",
+        default=os.getenv("MEMGUARDIAN_PROMETHEUS", "true") == "false",
         help="Prometheus Exporter disable",
     )
     result = parser.parse_args()

@@ -291,9 +291,23 @@ def main():
 
     kclient = KubernetesClient(args.kubeconfig, args.incluster_base_path)
     memguardian = MemGuardian(kclient)
+
+    run_time_summary = prometheus.Summary(
+        "memguardian_loop",
+        "Loop execution time",
+    )
+    exceptions_count = prometheus.Counter(
+        "memguardian_error",
+        "Errors in the main loop",
+    )
     while True:
         logger.debug("Running MemGuardian")
-        memguardian.run()
+        try:
+            with exceptions_count.count_exceptions():
+                with run_time_summary.time():
+                    memguardian.run()
+        except:
+            logger.exception("Unknown problem in the run loop.")
         if not args.daemon:
             break
         logger.debug(

@@ -1,0 +1,17 @@
+repos:
+  - repo:               https://github.com/pre-commit/pre-commit-hooks
+    rev:                v2.1.0
+    hooks:
+    - id:               trailing-whitespace
+    - id:               check-merge-conflict
+  - repo:               https://github.com/pre-commit/mirrors-isort
+    rev:                'v4.3.17'
+    hooks:
+    - id:               isort
+      name:             Sort python includes with "isort"
+  - repo:               https://github.com/ambv/black
+    rev:                stable
+    hooks:
+    - id:               black
+      name:             Fix python syntax with "black"
+      language_version: python3

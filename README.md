@@ -8,6 +8,15 @@ This might sound like a liveness probe, but there are several differences:
 - LivenessProbe performs a `kill -9`, which allows no control. MemGuardian will delete a POD in the same way as `kubectl delete pod`, which performs a `kill -15` and wait configured grace periods and so on.
 - In addition, MemGuardian won't remove more than one POD per controller in each loop to avoid DoS. It prefers to retain the PODs for longer than create DoS.
 
+# Usage
+
+Just deploy the MemGuardian (with appropiate permision, see `example/rbac.yaml`) and add annotations like these to your desired pods, throught deployment templates or however:
+- `memguardian.limit.memory: 1000000` Limits the memory in any container in the pod to 1000000 bytes
+- `memguardian.limit.memory: 1000k` Limits the memory in any container in the pod to 1000000 bytes
+- `memguardian.limit.memory: 1m` Limits the memory in any container in the pod to 1000000 bytes
+- `memguardian.limit.memory: 1Mi` Limits the memory in any container in the pod to 1 Mebibyte. 
+- `memguardian.limit.memory/nginx: 3Mi` Limits the memory of "nginx" container in the pod to 3 Mebibytes. 
+
 # known issues
 
 Currently it is retrieving all pods status on each loop. In big Kubernetes deployments this might require too many resources or be slow.

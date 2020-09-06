@@ -2,10 +2,10 @@
 
 MemGuardian will check the memory consumed by containers periodically. If the POD has some annotations, it will delete the pod when it requires more memory than configured.
 
-This might sound like a liveness probe, but there are several differences:
+This might sound like a memory limit, but there are several differences:
 
-- LivenessProbe just consider each POD individually. MemGuardian will not delete a POD unless every POD in the same controller (replicaset, daemonset, ...) are in READY status, reducing the DoS (Denial of Service) probability.
-- LivenessProbe performs a `kill -9`, which allows no control. MemGuardian will delete a POD in the same way as `kubectl delete pod`, which performs a `kill -15` and wait configured grace periods and so on.
+- Limits consider each POD individually. MemGuardian will not delete a POD unless every POD in the same controller (replicaset, daemonset, ...) are in READY status, reducing the DoS (Denial of Service) probability.
+- Limits perform a `kill -9`, which allows no control. MemGuardian will delete a POD in the same way as `kubectl delete pod`, which performs a `kill -15` and wait configured grace periods and so on.
 - In addition, MemGuardian won't remove more than one POD per controller in each loop to avoid DoS. It prefers to retain the PODs for longer than create DoS.
 
 # Usage
